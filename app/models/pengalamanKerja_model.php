@@ -17,7 +17,7 @@ class pengalamanKerja_model
 
     public function store($data, $id)
     {
-       foreach($data['nama_perusahaan'] as $key => $val){
+        foreach($data['nama_perusahaan'] as $key => $val){
             if($val == ''){
                 continue;
             }
@@ -32,8 +32,8 @@ class pengalamanKerja_model
                 'gaji_terakhir' => $data['gaji_terakhir'][$key],
             ];
             $respon[] = $this->runStore($susun);
-       }
-       return $respon;
+        }
+        return $respon;
     }
 
     private function runStore($data)

@@ -9,6 +9,7 @@ $uri .= $_SERVER['HTTP_HOST'];
 
 
 define('BASEURL', $uri . '/hris/public');
+// define('BASEURL', 'http://localhost/hris/public');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

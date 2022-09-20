@@ -1,3 +1,6 @@
+<div class="mb-3">
+    <a href="<?= BASEURL ?>/calonKaryawan"><i class="bi bi-arrow-left-square" style="font-size: 1.3rem"></i></a>
+</div>
 <form action="<?= BASEURL; ?>/calonKaryawan/biodataUpdate" method="POST">
     <input type="hidden" name="id" value="<?= $data['data'][0]['id'] ?>">
     <input type="hidden" name="created_at" value="<?= $data['data'][0]['created_at'] ?>">
@@ -130,10 +133,6 @@
         <span class="input-group-text">Rp.</span>
         <input type="number" class="form-control" id="keinginan_gaji" name="keinginan_gaji" autocomplete="off" value="<?= $data['data'][0]['keinginan_gaji'] ?>" required>
     </div>
-    <div class="mb-3">
-        <a href="#top"><sup><i class="bi bi-chevron-up"></i></sup> <span style="font-size: 12px;">back to top</span></a>
-    </div>
-
     <div class="mb-3">
         <button type="submit" class="btn btn-primary btn-sm">Update</button>
         <a href="<?= BASEURL ?>/calonKaryawan" class="btn btn-secondary btn-sm">Back</a>

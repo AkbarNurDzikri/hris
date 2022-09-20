@@ -8,19 +8,8 @@ class riwayatPendidikan_model
     {
         $this->db = new Database;
     }
-    
-    public function getRiwayatPendidikan($id)
-    {
-        $this->db->query("SELECT rp.*, ck.nama_depan FROM riwayat_pendidikan AS rp LEFT JOIN calon_karyawan AS ck ON rp.id_calon_karyawan = ck.id WHERE id_calon_karyawan = :id");
-        $this->db->bind('id', $id);
-        return $this->db->resultSet();
-    }
-    public function getRiwayatPendidikanbyId($id)
-    {
-        $this->db->query("SELECT * FROM riwayat_pendidikan WHERE id=:id");
-        $this->db->bind('id', $id);
-        return $this->db->resultSet();
-    }
+
+    // Prepare Multiple Insert
     public function store($data, $id)
     {
         foreach($data['nama_lembaga'] as $key => $val){
@@ -36,11 +25,13 @@ class riwayatPendidikan_model
                 'alamat_lembaga' => $data['alamat_lembaga'][$key],
                 'berijazah' => $data['berijazah'][$key]
             ];
-           $respone[] = $this->RunStore($rekap);
+            $respone[] = $this->RunStore($rekap);
         }
         return $respone;
     }
+    // End Prepare Multiple Insert
 
+    // Execute Multiple Insert
     private function RunStore($data)
     {
         $query = "INSERT INTO riwayat_pendidikan VALUES ('', :id_calon_karyawan, :jenis_pendidikan, :jenjang_pendidikan, :program_keahlian, :nama_lembaga, :alamat_lembaga, :berijazah, :created_at, :updated_at)";
@@ -60,19 +51,37 @@ class riwayatPendidikan_model
 
         return $this->db->rowCount();
     }
+    // End Execute Multiple Insert
+    
+    // Riwayat Pendidikan All by id Karyawan
+    public function getAllRiwayatPendidikan($id)
+    {
+        $this->db->query("SELECT rp.*, ck.nama_depan FROM riwayat_pendidikan AS rp LEFT JOIN calon_karyawan AS ck ON rp.id_calon_karyawan = ck.id WHERE id_calon_karyawan = :id");
+        $this->db->bind('id', $id);
+        return $this->db->resultSet();
+    }
+    // End Riwayat Pendidikan All by id Karyawan
 
+    // Riwayat Pendidikan by id Riwayat Pendidikan
+    public function getRiwayatPendidikanbyId($id)
+    {
+        $this->db->query("SELECT * FROM riwayat_pendidikan WHERE id=:id");
+        $this->db->bind('id', $id);
+        return $this->db->resultSet();
+    }
+    // End Riwayat Pendidikan by id Riwayat Pendidikan
+
+    // Update
     public function update($data)
     {
-        // var_dump($data)       ;
-        // die;
-            $query = "UPDATE riwayat_pendidikan SET
-            jenis_pendidikan = :jenis_pendidikan,
-            jenjang_pendidikan = :jenjang_pendidikan,
-            program_keahlian = :program_keahlian,
-            nama_lembaga = :nama_lembaga,
-            alamat_lembaga = :alamat_lembaga,
-            berijazah = :berijazah,
-            updated_at = :updated_at
+        $query = "UPDATE riwayat_pendidikan SET
+        jenis_pendidikan = :jenis_pendidikan,
+        jenjang_pendidikan = :jenjang_pendidikan,
+        program_keahlian = :program_keahlian,
+        nama_lembaga = :nama_lembaga,
+        alamat_lembaga = :alamat_lembaga,
+        berijazah = :berijazah,
+        updated_at = :updated_at
         WHERE id = :id
         ";
 
@@ -91,15 +100,18 @@ class riwayatPendidikan_model
 
         return $this->db->rowCount();
     }
+    // End Update
 
-    public function destroy($data)
+    // Delete
+    public function delete($id)
     {
-        $query = "DELETE FROM riwayat_pendidikan WHERE id_calon_karyawan = :id";
+        $query = "DELETE FROM riwayat_pendidikan WHERE id = :id";
         $this->db->query($query);
-        $this->db->bind('id', $data['id']);
+        $this->db->bind('id', $id);
 
         $this->db->execute();
 
         return $this->db->rowCount();
     }
+    // End Delete
 }

@@ -73,8 +73,8 @@ class calonKaryawan_model
         pk.gaji_terakhir AS gaji_terakhir,
         pk.created_at AS pk_created_at
         FROM calon_karyawan AS ck
-        RIGHT JOIN riwayat_pendidikan AS rp ON ck.id = rp.id_calon_karyawan
-        RIGHT JOIN pengalaman_kerja AS pk ON ck.id = pk.id_calon_karyawan
+        LEFT JOIN riwayat_pendidikan AS rp ON ck.id = rp.id_calon_karyawan
+        LEFT JOIN pengalaman_kerja AS pk ON ck.id = pk.id_calon_karyawan
         GROUP BY ck.id ORDER BY ck.id");
         return $this->db->resultSet();
     }

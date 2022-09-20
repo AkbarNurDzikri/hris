@@ -21,6 +21,27 @@ class calonKaryawan extends Controller
         $this->view('template/footer');
     }
 
+    // Multiple Create
+    public function store()
+    {
+        $storeBiodata = $this->model('calonKaryawan_model')->store($_POST);
+        $getLastId = $this->model('calonKaryawan_model')->getLastId();
+
+        if($storeBiodata > 0) {
+
+            $this->model('riwayatPendidikan_model')->store($_POST['pendidikan'], $getLastId);
+            $this->model('pengalamanKerja_model')->store($_POST['pengalaman'], $getLastId);
+            Flasher::setFlash('success', 'Berhasil menambahkan biodata, riwayat pendidikan & pengalaman kerja ' . $_POST['nama_depan'], '<i class="bi bi-check2-circle"></i>');
+            header('Location: ' . BASEURL . '/calonKaryawan');
+            
+        } else {
+            Flasher::setFlash('danger', 'Gagal menambahkan calon karyawan ' . $_POST['nama_depan'], ' !');
+            header('Location: ' . BASEURL . '/calonKaryawan');
+        }
+    }
+    // End Multiple Create
+
+    // Biodata
     public function biodataEdit($id)
     {
         if(!isset($_SESSION['user'])) {
@@ -47,7 +68,9 @@ class calonKaryawan extends Controller
             header('Location: ' . BASEURL . '/calonKaryawan');
         }
     }
+    // End Biodata
 
+    // Pendidikan
     public function pendidikanEdit($id)
     {
         if(!isset($_SESSION['user'])) {
@@ -59,91 +82,14 @@ class calonKaryawan extends Controller
             'breadcrumb' => 'SDM',
             'breadcrumb_active' => 'Pendidikan Calon Karyawan / Edit',
             'href' => 'calonKaryawan',
-            'data' => $this->model('riwayatPendidikan_model')->getRiwayatPendidikan($id)
+            'data' => $this->model('riwayatPendidikan_model')->getAllRiwayatPendidikan($id)
         ];
         $this->view('template/header', $data);
         $this->view('recruitment/pendidikanEdit', $data);
         $this->view('template/footer');
     }
 
-    public function PendidikanUpdate()
-    {
-        // die(var_dump($_POST));
-        if($this->model('riwayatPendidikan_model')->update($_POST) > 0) {
-            Flasher::setFlash('success', 'Berhasil merubah pendidikan ' . $_POST['nama_depan'], '<i class="bi bi-check2-circle"></i>');
-            header('Location: ' . BASEURL . '/calonKaryawan/pendidikanEdit/' . $_POST['idCalonKaryawan']);
-        }
-    }
-
-    public function store()
-    {
-        // die(var_dump($_POST['pengalaman']));
-        $storeBiodata = $this->model('calonKaryawan_model')->store($_POST);
-        $getLastId = $this->model('calonKaryawan_model')->getLastId();
-
-        if($storeBiodata > 0) {
-
-            $this->model('riwayatPendidikan_model')->store($_POST['pendidikan'], $getLastId);
-            $this->model('pengalamanKerja_model')->store($_POST['pendidikan'], $getLastId);
-            Flasher::setFlash('success', 'Berhasil menambahkan biodata, riwayat pendidikan & pengalaman kerja ' . $_POST['nama_depan'], '<i class="bi bi-check2-circle"></i>');
-            header('Location: ' . BASEURL . '/calonKaryawan');
-            
-        } else {
-            Flasher::setFlash('danger', 'Gagal menambahkan calon karyawan ' . $_POST['nama_depan'], ' !');
-            header('Location: ' . BASEURL . '/calonKaryawan');
-        }
-    }
-
-    public function update()
-    {
-        $updateBiodata = $this->model('calonKaryawan_model')->update($_POST);
-
-        if($updateBiodata > 0) {
-            $updateRiwayatPendidikan = $this->model('riwayatPendidikan_model')->update($_POST);
-            if($updateRiwayatPendidikan > 0) {
-                $updatePengalamanKerja = $this->model('pengalamanKerja_model')->update($_POST);
-                if($updatePengalamanKerja > 0) {
-                    Flasher::setFlash('success', 'Berhasil mengupdate biodata, riwayat pendidikan & pengalaman kerja ' . $_POST['nama_depan'], '<i class="bi bi-check2-circle"></i>');
-                    header('Location: ' . BASEURL . '/calonKaryawan');
-                } else {
-                    Flasher::setFlash('danger', 'Gagal mengupdate pengalaman kerja ' . $_POST['nama_depan'], ' !');
-                    header('Location: ' . BASEURL . '/calonKaryawan');
-                }
-            } else {
-                Flasher::setFlash('danger', 'Gagal mengupdate  riwayat pendidikan ' . $_POST['nama_depan'], ' !');
-                header('Location: ' . BASEURL . '/calonKaryawan');
-            }
-        } else {
-            Flasher::setFlash('danger', 'Gagal mengupdate biodata ' . $_POST['nama_depan'], ' !');
-            header('Location: ' . BASEURL . '/calonKaryawan');
-        }
-    }
-
-    public function destroy()
-    {
-        $deletePengalamanKerja = $this->model('pengalamanKerja_model')->destroy($_POST);
-
-        if($deletePengalamanKerja >= 0) {
-            $deleteRiwayatPendidikan = $this->model('riwayatPendidikan_model')->destroy($_POST);
-            if($deleteRiwayatPendidikan > 0) {
-                $deleteBiodata = $this->model('calonKaryawan_model')->destroy($_POST);
-                if($deleteBiodata > 0) {
-                    Flasher::setFlash('success', 'Berhasil menghapus biodata, riwayat pendidikan & pengalaman kerja ' . $_POST['nama_depan'], ' <i class="bi bi-check2-circle"></i>');
-                    header('Location: ' . BASEURL . '/calonKaryawan');
-                } else {
-                    Flasher::setFlash('danger', 'Gagal menghapus biodata ' . $_POST['nama_depan'], ' !');
-                    header('Location: ' . BASEURL . '/calonKaryawan');
-                }
-            } else {
-                Flasher::setFlash('danger', 'Gagal menghapus riwayat pendidikan ' . $_POST['nama_depan'], ' !');
-                header('Location: ' . BASEURL . '/calonKaryawan');
-            }
-        } else {
-            Flasher::setFlash('danger', 'Gagal menghapus pengalaman kerja ' . $_POST['nama_depan'], ' !');
-            header('Location: ' . BASEURL . '/calonKaryawan');
-        }
-    }
-
+    // Modal Update
     public function modalUpdate()
     {
         if(empty($_POST)){
@@ -152,4 +98,22 @@ class calonKaryawan extends Controller
         $data = $this->model('riwayatPendidikan_model')->getRiwayatPendidikanbyId($_POST['id'])[0];
         $this->view('recruitment\modal\pendidikanUpdate', $data);
     }
+    // End Modal Update
+
+    public function PendidikanUpdate()
+    {
+        if($this->model('riwayatPendidikan_model')->update($_POST) > 0) {
+            Flasher::setFlash('success', 'Berhasil merubah pendidikan ' . $_POST['nama_depan'], '<i class="bi bi-check2-circle"></i>');
+            header('Location: ' . BASEURL . '/calonKaryawan/pendidikanEdit/' . $_POST['idCalonKaryawan']);
+        }
+    }
+
+    public function pendidikanDelete($id)
+    {
+        if($this->model('riwayatPendidikan_model')->delete($id) > 0) {
+            Flasher::setFlash('success', 'Berhasil Menghapus pendidikan', '<i class="bi bi-check2-circle"></i>');
+            echo '<script>history.go(-1)</script>';
+        }
+    }
+    // End Pendidikan
 }
