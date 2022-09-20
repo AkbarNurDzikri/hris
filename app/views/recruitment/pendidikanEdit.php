@@ -33,7 +33,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div id="displayEditForm" class="modal-body">
-            
+            ...
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -48,7 +48,6 @@
     <a href="#top"><sup><i class="bi bi-chevron-up"></i></sup> <span style="font-size: 12px;">back to top</span></a>
 </div>
 
-
 <script>
     function editModal(id) {
         const modalEdit = new bootstrap.Modal('#modalEdit', {
@@ -56,10 +55,10 @@
         })
         modalEdit.show()
         $.post(
-            '<?= BASEURL . '/calonKaryawan/modalUpdate' ?>',
-            {id},
-            function (data) {
-                $('#displayEditForm').html(data)
+            '<?= BASEURL . '/calonKaryawan/modalUpdate' ?>', //URL Target
+            {id}, // Packing data
+            function (data) { //jika berhasil
+                $('#displayEditForm').html(data) //render tampilan ke modal
             }
         )
     }

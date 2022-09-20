@@ -146,45 +146,10 @@ class calonKaryawan extends Controller
 
     public function modalUpdate()
     {
-        // die(var_dump(($_POST)));
         if(empty($_POST)){
             die('ERROR 403');
         }
-        $d = $this->model('riwayatPendidikan_model')->getRiwayatPendidikanbyId($_POST['id'])[0];
-
-        ?>
-        <input type="hidden" value="<?= $d['id_calon_karyawan'] ?>" name="idCalonKaryawan">
-        <input type="hidden" value="<?= $d['id'] ?>" name="id">
-        <div class="mb-3">
-            <label for="jenis_pendidikan" class="form-label">Jenis Pendidikan</label>
-            <select name="jenis_pendidikan" id="jenis_pendidikan" class="form-select" required>
-                    <option <?= ($d['jenis_pendidikan'] == 'Formal')? 'selected' : '' ?> value="Formal">Formal</option>
-                    <option <?= ($d['jenis_pendidikan'] == 'Non Formal')? 'selected' : '' ?> value="Non Formal">Non Formal</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="jenjang_pendidikan" class="form-label">Jenjang Pendidikan</label>
-            <input type="text" class="form-control" id="jenjang_pendidikan" name="jenjang_pendidikan" autocomplete="off" value="<?= $d['jenjang_pendidikan'] ?>">
-        </div>
-        <div class="mb-3">
-            <label for="program_keahlian" class="form-label">Program Keahlian</label>
-            <input type="text" class="form-control" id="program_keahlian" name="program_keahlian" placeholder="IPA/IPS/Akuntansi/.." autocomplete="off" value="<?= $d['program_keahlian'] ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="nama_lembaga" class="form-label">Nama Lembaga</label>
-            <input type="text" class="form-control" id="nama_lembaga" name="nama_lembaga" placeholder="Universitas Indonesia" autocomplete="off" value="<?= $d['nama_lembaga'] ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="alamat_lembaga" class="form-label">Alamat Lembaga</label>
-            <textarea name="alamat_lembaga" id="alamat_lembaga" class="form-control" required><?= $d['alamat_lembaga'] ?></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="berijazah" class="form-label">Berijazah</label>
-            <select name="berijazah" id="berijazah" class="form-select">
-                    <option <?= ($d['berijazah'] == 'Ya')? 'selected' : '' ?> value="Ya">Ya</option>
-                    <option <?= ($d['berijazah'] == 'Tidak')? 'selected' : '' ?> value="Tidak">Tidak</option>
-            </select>
-        </div>
-        <?php
+        $data = $this->model('riwayatPendidikan_model')->getRiwayatPendidikanbyId($_POST['id'])[0];
+        $this->view('recruitment\modal\pendidikanUpdate', $data);
     }
 }
