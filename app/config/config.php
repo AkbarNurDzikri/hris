@@ -1,6 +1,14 @@
 <?php
 
-define('BASEURL', 'http://localhost/hris/public');
+if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+    $uri = 'https://';
+} else {
+    $uri = 'http://';
+}
+$uri .= $_SERVER['HTTP_HOST'];
+
+
+define('BASEURL', $uri . '/tes/public');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

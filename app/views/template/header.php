@@ -26,6 +26,9 @@
   <!-- Template Main CSS File -->
   <link href="<?= BASEURL; ?>/assets/css/style.css" rel="stylesheet">
 
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
