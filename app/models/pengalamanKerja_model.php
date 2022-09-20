@@ -23,13 +23,13 @@ class pengalamanKerja_model
             }
             $susun = [
                 'id_calon_karyawan' => $id['last_id'],
-                'nama_perusahaan' => $data['nama_perusahaan'],
-                'jabatan' => $data['jabatan'],
-                'dept' => $data['dept'],
-                'durasi' => $data['durasi'],
-                'alasan_berhenti' => $data['alasan_berhenti'],
-                'jobdesc' => $data['jobdesc'],
-                'gaji_terakhir' => $data['gaji_terakhir'],
+                'nama_perusahaan' => $data['nama_perusahaan'][$key],
+                'jabatan' => $data['jabatan'][$key],
+                'dept' => $data['dept'][$key],
+                'durasi' => $data['durasi'][$key],
+                'alasan_berhenti' => $data['alasan_berhenti'][$key],
+                'jobdesc' => $data['jobdesc'][$key],
+                'gaji_terakhir' => $data['gaji_terakhir'][$key],
             ];
             $respon[] = $this->runStore($susun);
        }
