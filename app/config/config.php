@@ -8,7 +8,7 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 $uri .= $_SERVER['HTTP_HOST'];
 
 
-define('BASEURL', $uri . '/tes/public');
+define('BASEURL', $uri . '/hris/public');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

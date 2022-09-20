@@ -29,6 +29,9 @@
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
+  <!-- Vendor JS Files -->
+  <script src="<?= BASEURL; ?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.3.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
