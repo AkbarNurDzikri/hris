@@ -299,7 +299,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="jenjang_pendidikan` + itemNum + `" class="form-label">Jenjang Pendidikan</label>
-                                                <input type="text" class="form-control" id="jenjang_pendidikan` + itemNum + `" name="pendidikan[jenjang_pendidikan][` + itemNum + `]" placeholder="Pendidikan terakhir (SMK/SMA/S1/..)" autocomplete="off">
+                                                <input type="text" class="form-control" id="jenjang_pendidikan` + itemNum + `" name="pendidikan[jenjang_pendidikan][` + itemNum + `]" placeholder="Formal (S1/S2/..) Non Formal (Basic/Medium/Advanced)" autocomplete="off">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="program_keahlian` + itemNum + `" class="form-label">Program Keahlian</label>

@@ -9,7 +9,7 @@ class riwayatPendidikan_model
         $this->db = new Database;
     }
 
-    // Prepare Multiple Insert
+    // Prepare First Multiple Insert
     public function store($data, $id)
     {
         foreach($data['nama_lembaga'] as $key => $val){
@@ -29,7 +29,30 @@ class riwayatPendidikan_model
         }
         return $respone;
     }
-    // End Prepare Multiple Insert
+    // End Prepare First Multiple Insert
+
+    // Prepare Additional Multiple Insert
+    public function additionalStore($data)
+    {
+        // die(var_dump($data));
+        foreach($data['nama_lembaga'] as $key => $val){
+            if($val == ''){
+                continue;
+            }
+            $rekap = [
+                'id_calon_karyawan' => $data['id_calon_karyawan'][$key],
+                'jenis_pendidikan' => $data['jenis_pendidikan'][$key],
+                'jenjang_pendidikan' => $data['jenjang_pendidikan'][$key],
+                'program_keahlian' => $data['program_keahlian'][$key],
+                'nama_lembaga' => $data['nama_lembaga'][$key],
+                'alamat_lembaga' => $data['alamat_lembaga'][$key],
+                'berijazah' => $data['berijazah'][$key]
+            ];
+            $respone[] = $this->RunStore($rekap);
+        }
+        return $respone;
+    }
+    // End Prepare Additional Multiple Insert
 
     // Execute Multiple Insert
     private function RunStore($data)
